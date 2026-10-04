@@ -4,54 +4,93 @@ import ProjectCard from "../components/ProjectCard.astro";
 import { getCollection } from "astro:content";
 
 const allPosts = await getCollection("blog");
-const sortedPosts = allPosts.sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
-const recentPosts = sortedPosts.slice(0, 3);
+const postCount = allPosts.length;
 
-const highlightedProjects = [
+const projectCategories = [
   {
-    title: "giove-cms",
-    badge: "Open Source",
-    description:
-      "A code-first headless CMS engineered for autonomous AI agents and human editors alike: typed collections, draft revisions, and WebMCP integration.",
-    link: "https://github.com/giovesch/giove-cms",
-    tags: ["TypeScript", "WebMCP", "Astro", "Agentic UI"],
-    isExternal: true,
+    name: "Developer Tools & Systems",
+    items: [
+      {
+        title: "giove-cms",
+        badge: "Open Source",
+        description:
+          "A code-first headless CMS engineered for autonomous AI agents and human editors alike: typed collections, draft revisions, access control, and a WebMCP layer giving agents equal tool access.",
+        link: "https://github.com/giovesch/giove-cms",
+        tags: ["TypeScript", "WebMCP", "Astro", "Agentic UI"],
+        isExternal: true,
+      },
+      {
+        title: "omacool",
+        badge: "Systems",
+        description:
+          "Linux hwmon fan control utility with live thermal monitoring, preset management, and an interactive draggable curve editor for thermal orchestration.",
+        link: "https://github.com/giovesch/omacool",
+        tags: ["Linux", "hwmon", "C++", "Kernel"],
+        isExternal: true,
+      },
+      {
+        title: "dotfiles",
+        badge: "Config",
+        description:
+          "Cross-platform configuration environment tailored for high keyboard-driven productivity across Linux and macOS.",
+        link: "https://github.com/giovesch/dotfiles",
+        tags: ["Shell", "Neovim", "Tmux", "Wayland"],
+        isExternal: true,
+      },
+    ],
   },
   {
-    title: "Ising Phase Simulator",
-    badge: "Physics",
-    description:
-      "Monte Carlo Metropolis-Hastings and Wolff cluster simulation of 2D ferromagnetic spin lattices with real-time thermodynamic state metrics.",
-    link: "/blog/simulating-ferromagnetic-phase-transitions",
-    tags: ["Python", "NumPy", "Statistical Mechanics", "MCMC"],
-    isExternal: false,
+    name: "Physics & Computer Vision",
+    items: [
+      {
+        title: "Ising Phase Simulator",
+        badge: "Computational Physics",
+        description:
+          "Monte Carlo simulation of 2D ferromagnetic spin lattices testing Metropolis-Hastings vs. Wolff cluster algorithms across the Onsager critical temperature.",
+        link: "/blog#simulating-ferromagnetic-phase-transitions",
+        tags: ["Python", "NumPy", "Statistical Mechanics", "MCMC"],
+        isExternal: false,
+      },
+      {
+        title: "Punto",
+        badge: "Computer Vision",
+        description:
+          "Offline skin-mapping demo utilizing persistent keyframe mapping with ORB relocalization and an encrypted local vault for privacy-preserving biometric analysis.",
+        link: "https://github.com/giovesch/punto",
+        tags: ["OpenCV", "ORB-SLAM", "C++", "SQLCipher"],
+        isExternal: true,
+      },
+    ],
   },
   {
-    title: "omacool",
-    badge: "Systems",
-    description:
-      "Hardware thermal and fan management utility for Linux hwmon interfaces, featuring custom curve editing and thermal zone orchestration.",
-    link: "https://github.com/giovesch/omacool",
-    tags: ["Linux", "hwmon", "C++", "Kernel Interfaces"],
-    isExternal: true,
-  },
-  {
-    title: "Punto",
-    badge: "Computer Vision",
-    description:
-      "Offline skin-mapping and spatial relocalization system using ORB feature keyframes and an encrypted local SQLite/SQLCipher vault.",
-    link: "https://github.com/giovesch/punto",
-    tags: ["Computer Vision", "ORB-SLAM", "C++", "Security"],
-    isExternal: true,
+    name: "Personal & Craft",
+    items: [
+      {
+        title: "LedgerFlow Portfolio Engine",
+        badge: "Personal Finance",
+        description:
+          "Modern portfolio theory asset allocator and rebalancing calculator implementing Markowitz mean-variance optimization and Monte Carlo retirement projections.",
+        link: "/blog#a-physicists-guide-to-personal-finance",
+        tags: ["TypeScript", "Financial Modeling", "Optimization"],
+        isExternal: false,
+      },
+      {
+        title: "Giove's Culinary Notebook",
+        badge: "Culinary Science",
+        description:
+          "Formulations, hydration tables, and fermentation kinetics for high-hydration sourdough baking and culinary physics.",
+        link: "/blog#science-of-78-percent-hydration-sourdough",
+        tags: ["Fermentation", "Food Chemistry", "Markdown"],
+        isExternal: false,
+      },
+    ],
   },
 ];
 ---
 
 <BaseLayout
   title="Giovanni Schiavo — Physics Student & Developer"
-  description="Personal website and notebook of Giovanni Schiavo: physics student at the University of Padova, developer and tech enthusiast."
+  description="Personal website of Giovanni Schiavo: physics student at the University of Padova, developer and tech enthusiast."
 >
   <div class="container">
     <!-- WHO AM I SECTION -->
@@ -119,78 +158,127 @@ const highlightedProjects = [
       </div>
     </section>
 
-    <!-- HIGHLIGHTED PROJECTS SECTION -->
+    <!-- PROJECTS SECTION (ALL PROJECTS SHOWN AS CARDS) -->
     <section class="section" id="projects">
       <div class="section-header">
-        <h2 class="section-title">Highlighted Projects</h2>
-        <a href="/projects" class="section-link">
-          view all
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m9 18 6-6-6-6"></path>
-          </svg>
-        </a>
+        <h2 class="section-title">Projects &amp; Experiments</h2>
       </div>
 
-      <div class="projects-grid">
-        {highlightedProjects.map((project) => (
-          <ProjectCard
-            title={project.title}
-            badge={project.badge}
-            description={project.description}
-            link={project.link}
-            tags={project.tags}
-            isExternal={project.isExternal}
-          />
+      <div style="display: flex; flex-direction: column; gap: 2.25rem;">
+        {projectCategories.map((cat) => (
+          <div>
+            <h3 style="font-size: 0.95rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.85rem; letter-spacing: -0.01em;">
+              {cat.name}
+            </h3>
+            <div class="projects-grid">
+              {cat.items.map((item) => (
+                <ProjectCard
+                  title={item.title}
+                  badge={item.badge}
+                  description={item.description}
+                  link={item.link}
+                  tags={item.tags}
+                  isExternal={item.isExternal}
+                />
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </section>
 
-    <!-- SINGLE THREAD STYLE BLOG / RECENT ARTICLES -->
-    <section class="section" id="blog-thread">
+    <!-- WRITING / BLOG LINK SECTION (NO ARTICLES ON LANDING PAGE) -->
+    <section class="section" id="blog-link" style="margin-bottom: 1rem;">
       <div class="section-header">
         <h2 class="section-title">Writing &amp; Notes</h2>
-        <a href="/blog" class="section-link">
-          enter thread
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m9 18 6-6-6-6"></path>
-          </svg>
-        </a>
       </div>
 
-      <div class="thread-container">
-        {recentPosts.map((post) => (
-          <article class="thread-entry">
-            <div class="thread-meta">
-              <time class="thread-date" datetime={post.data.pubDate.toISOString()}>
-                {post.data.pubDate.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </time>
-              <span>·</span>
-              <span>{post.data.readingTime}</span>
-            </div>
-
-            <h3 class="thread-title">
-              <a href={`/blog/${post.id}`}>{post.data.title}</a>
-            </h3>
-
-            <p class="thread-summary">{post.data.description}</p>
-
-            <div class="thread-actions">
-              <a href={`/blog/${post.id}`} class="thread-read-link">
-                Read article &rarr;
-              </a>
-              <div class="tag-list">
-                {post.data.tags.map((tag) => (
-                  <span class="blog-tag">#{tag}</span>
-                ))}
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
+      <a href="/blog" class="writing-portal-card">
+        <div class="writing-portal-content">
+          <div class="writing-portal-title">
+            <span>Read all articles</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </div>
+          <p class="writing-portal-desc">
+            A single continuous long page loading all {postCount} essays and technical notes in complete text, in order of posting — covering computational physics, software architecture, sourdough baking thermodynamics, street photography, and portfolio theory.
+          </p>
+        </div>
+        <span class="portal-badge">{postCount} full articles &rarr;</span>
+      </a>
     </section>
   </div>
 </BaseLayout>
+
+<style>
+  .writing-portal-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.5rem 1.75rem;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+  }
+
+  .writing-portal-card:hover {
+    border-color: var(--text-muted);
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  .writing-portal-content {
+    flex: 1;
+  }
+
+  .writing-portal-title {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--text-main);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .writing-portal-card:hover .writing-portal-title svg {
+    transform: translateX(4px);
+  }
+
+  .writing-portal-title svg {
+    transition: transform 0.15s ease;
+  }
+
+  .writing-portal-desc {
+    font-size: 0.925rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .portal-badge {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent-highlight);
+    background: var(--bg-subtle);
+    padding: 0.4rem 0.85rem;
+    border-radius: 9999px;
+    border: 1px solid var(--border-color);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .writing-portal-card {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+  }
+</style>

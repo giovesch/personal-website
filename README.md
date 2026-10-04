@@ -2,15 +2,15 @@
 
 Minimalist, editorial personal website and writing notebook for **Giovanni Schiavo** (physics student at University of Padova, developer & tech enthusiast).
 
-Built with **[Astro](https://astro.build/)** and pure CSS. Zero bloated dependencies, 100% static HTML generation, responsive typography, and an obsidian dark aesthetic.
+Built with **[Astro](https://astro.build/)**, **pnpm**, and pure CSS. Zero bloated dependencies, 100% static HTML generation, responsive typography, and an obsidian dark aesthetic.
 
 ---
 
 ## Features
 
 - **Who Am I**: Concise hero section highlighting physics studies at UniPD, software development, sourdough fermentation/cooking, photography, and personal finance.
-- **Highlighted Projects**: Clean card grid with status badges, tech stack tags, and external/internal routing.
-- **Single-Thread Blog**: Continuous chronological stream layout (`/blog`) with dynamic tag filtering and dedicated deep-dive article reading pages (`/blog/[slug]`).
+- **Card-Grid Projects**: All software systems, simulations, and tools showcased directly on the landing page as interactive cards with status badges and tech stack tags.
+- **Single-Page Complete Articles Feed (`/blog`)**: A continuous long-form stream rendering all articles in full prose in chronological order of posting, complete with a quick-jump table of contents and per-entry permalinks.
 - **Aesthetic**: Refined, pure dark design system crafted with deep obsidian surfaces, subtle zinc borders, and warm monospace/serif accents.
 - **RSS Feed**: Auto-generated standard RSS 2.0 feed at `/rss.xml`.
 - **Content Collections**: Type-safe Markdown content layer configured via `src/content.config.ts`.
@@ -25,7 +25,7 @@ personal-website/
 │   └── favicon.svg           # Monogram SVG icon
 ├── src/
 │   ├── components/
-│   │   ├── Header.astro       # Minimal navigation bar
+│   │   ├── Header.astro       # Minimal navigation bar (Home, Blog)
 │   │   ├── Footer.astro       # Social links & copyright
 │   │   └── ProjectCard.astro  # Interactive project card
 │   ├── content/
@@ -33,12 +33,10 @@ personal-website/
 │   ├── layouts/
 │   │   └── BaseLayout.astro   # HTML skeleton, SEO & OpenGraph tags
 │   ├── pages/
-│   │   ├── index.astro        # Landing page (About + Projects + Recent Thread)
+│   │   ├── index.astro        # Landing page (About + All Projects + Blog portal)
 │   │   ├── blog/
-│   │   │   ├── index.astro    # Single-thread chronological stream
-│   │   │   └── [...slug].astro# Article reader
-│   │   ├── projects/
-│   │   │   └── index.astro    # Dedicated project showcase
+│   │   │   ├── index.astro    # Single long-form feed loading all articles in full
+│   │   │   └── [...slug].astro# Deep-link article reader
 │   │   └── rss.xml.ts         # RSS feed endpoint
 │   ├── styles/
 │   │   └── global.css         # Dark design system
