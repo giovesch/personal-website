@@ -1,0 +1,117 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+
+const projects = [
+  {
+    category: "Developer Tools & Systems",
+    items: [
+      {
+        title: "giove-cms",
+        badge: "Open Source",
+        description:
+          "A code-first headless CMS engineered for autonomous AI agents and human editors alike: typed collections, draft revisions, access control, and a WebMCP layer giving agents equal tool access.",
+        link: "https://github.com/giovesch/giove-cms",
+        tags: ["TypeScript", "WebMCP", "Astro", "Agentic UI"],
+        isExternal: true,
+      },
+      {
+        title: "omacool",
+        badge: "Systems",
+        description:
+          "Linux hwmon fan control utility with live thermal monitoring, preset management, and an interactive draggable curve editor for thermal orchestration.",
+        link: "https://github.com/giovesch/omacool",
+        tags: ["Linux", "hwmon", "C++", "Kernel"],
+        isExternal: true,
+      },
+      {
+        title: "dotfiles",
+        badge: "Config",
+        description:
+          "Cross-platform configuration environment tailored for high keyboard-driven productivity across Linux and macOS.",
+        link: "https://github.com/giovesch/dotfiles",
+        tags: ["Shell", "Neovim", "Tmux", "Wayland"],
+        isExternal: true,
+      },
+    ],
+  },
+  {
+    category: "Physics & Computer Vision",
+    items: [
+      {
+        title: "Ising Phase Simulator",
+        badge: "Computational Physics",
+        description:
+          "Monte Carlo simulation of 2D ferromagnetic spin lattices testing Metropolis-Hastings vs. Wolff cluster algorithms across the Onsager critical temperature.",
+        link: "/blog/simulating-ferromagnetic-phase-transitions",
+        tags: ["Python", "NumPy", "Statistical Mechanics", "MCMC"],
+        isExternal: false,
+      },
+      {
+        title: "Punto",
+        badge: "Computer Vision",
+        description:
+          "Offline skin-mapping demo utilizing persistent keyframe mapping with ORB relocalization and an encrypted local vault for privacy-preserving biometric analysis.",
+        link: "https://github.com/giovesch/punto",
+        tags: ["OpenCV", "ORB-SLAM", "C++", "SQLCipher"],
+        isExternal: true,
+      },
+    ],
+  },
+  {
+    category: "Personal & Craft",
+    items: [
+      {
+        title: "LedgerFlow Portfolio Engine",
+        badge: "Personal Finance",
+        description:
+          "Modern portfolio theory asset allocator and rebalancing calculator implementing Markowitz mean-variance optimization and Monte Carlo retirement projections.",
+        link: "/blog/a-physicists-guide-to-personal-finance",
+        tags: ["TypeScript", "Financial Modeling", "Optimization"],
+        isExternal: false,
+      },
+      {
+        title: "Giove's Culinary Notebook",
+        badge: "Culinary Science",
+        description:
+          "Formulations, hydration tables, and fermentation kinetics for high-hydration sourdough baking and culinary physics.",
+        link: "/blog/science-of-78-percent-hydration-sourdough",
+        tags: ["Fermentation", "Food Chemistry", "Markdown"],
+        isExternal: false,
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Projects — Giovanni Schiavo"
+  description="Software systems, computational physics simulations, and personal craft projects created by Giovanni Schiavo."
+>
+  <div class="container">
+    <div style="margin-bottom: 2.5rem;">
+      <h1 class="hero-name" style="margin-bottom: 0.5rem;">Projects &amp; Experiments</h1>
+      <p style="color: var(--text-muted); font-size: 1rem;">
+        A curated selection of software systems, physics simulations, and personal tools.
+      </p>
+    </div>
+
+    {projects.map((group) => (
+      <section class="section" style="margin-bottom: 3rem;">
+        <h2 class="section-title" style="margin-bottom: 1.25rem;">{group.category}</h2>
+        <div class="projects-grid">
+          {group.items.map((item) => (
+            <ProjectCard
+              title={item.title}
+              badge={item.badge}
+              description={item.description}
+              link={item.link}
+              tags={item.tags}
+              isExternal={item.isExternal}
+            />
+          ))}
+        </div>
+      </section>
+    ))}
+  </div>
+</BaseLayout>

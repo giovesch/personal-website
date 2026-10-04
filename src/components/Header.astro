@@ -1,0 +1,93 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+const navItems = [
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "Projects" },
+  { href: "/blog", label: "Blog" },
+];
+
+const isActive = (href: string) => {
+  if (href === "/" && currentPath === "/") return true;
+  if (href !== "/" && currentPath.startsWith(href)) return true;
+  return false;
+};
+---
+
+<header class="site-header">
+  <div class="container site-nav">
+    <a href="/" class="site-brand" aria-label="Giovanni Schiavo Homepage">
+      <span class="site-avatar-monogram">GS</span>
+      <span>giovanni schiavo</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main Navigation">
+      {navItems.map((item) => (
+        <a 
+          href={item.href} 
+          class:list={[{ active: isActive(item.href) }]}
+        >
+          {item.label}
+        </a>
+      ))}
+
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+        <!-- Sun icon for dark mode (click to switch to light) -->
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="m4.93 4.93 1.41 1.41"></path>
+          <path d="m17.66 17.66 1.41 1.41"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+          <path d="m6.34 17.66-1.41 1.41"></path>
+          <path d="m19.07 4.93-1.41 1.41"></path>
+        </svg>
+        <!-- Moon icon for light mode (click to switch to dark) -->
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<style>
+  :global([data-theme="dark"]) .moon-icon {
+    display: none;
+  }
+  :global([data-theme="dark"]) .sun-icon {
+    display: block;
+  }
+  :global([data-theme="light"]) .sun-icon,
+  :global(:not([data-theme])) .sun-icon {
+    display: none;
+  }
+  :global([data-theme="light"]) .moon-icon,
+  :global(:not([data-theme])) .moon-icon {
+    display: block;
+  }
+</style>
+
+<script>
+  function setupThemeToggle() {
+    const toggle = document.getElementById("theme-toggle");
+    if (!toggle) return;
+
+    toggle.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme") || "light";
+      const next = current === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+  }
+
+  // Setup immediately and support Astro page swaps
+  setupThemeToggle();
+  document.addEventListener("astro:after-swap", setupThemeToggle);
+</script>

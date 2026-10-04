@@ -1,0 +1,302 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog");
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const allTags = ["All", ...Array.from(new Set(allPosts.flatMap((p) => p.data.tags)))];
+---
+
+<BaseLayout
+  title="Thread &amp; Articles — Giovanni Schiavo"
+  description="A single-thread stream of articles, research notes, and essays on physics, software systems, cooking, and finance."
+>
+  <div class="container">
+    <div style="margin-bottom: 2.5rem;">
+      <h1 class="hero-name" style="margin-bottom: 0.5rem;">Writing Thread</h1>
+      <p style="color: var(--text-muted); font-size: 1rem;">
+        An ongoing chronological stream of technical notes, essays, and observations.
+      </p>
+    </div>
+
+    <!-- Filter Pills -->
+    <div class="filter-bar" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2.5rem;">
+      {allTags.map((tag) => (
+        <button 
+          type="button" 
+          class:list={["filter-btn", { active: tag === "All" }]} 
+          data-filter={tag}
+        >
+          {tag}
+        </button>
+      ))}
+    </div>
+
+    <!-- The Single Thread Stream -->
+    <div class="thread-stream">
+      {sortedPosts.map((post, idx) => (
+        <article 
+          class="thread-card" 
+          data-tags={JSON.stringify(post.data.tags)}
+        >
+          <div class="thread-stem">
+            <div class="thread-bullet">{sortedPosts.length - idx}</div>
+            <div class="thread-line"></div>
+          </div>
+
+          <div class="thread-body">
+            <div class="thread-header-meta">
+              <time datetime={post.data.pubDate.toISOString()} class="mono-date">
+                {post.data.pubDate.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </time>
+              <span class="meta-dot">·</span>
+              <span class="reading-time">{post.data.readingTime}</span>
+            </div>
+
+            <h2 class="post-title">
+              <a href={`/blog/${post.id}`}>{post.data.title}</a>
+            </h2>
+
+            <p class="post-desc">{post.data.description}</p>
+
+            <div class="thread-footer-row">
+              <div class="tag-group">
+                {post.data.tags.map((tag) => (
+                  <span class="pill-tag">#{tag}</span>
+                ))}
+              </div>
+
+              <a href={`/blog/${post.id}`} class="read-btn">
+                Read article
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 12h14"></path>
+                  <path d="m12 5 7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .filter-btn {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .filter-btn:hover {
+    color: var(--text-main);
+    border-color: var(--text-muted);
+  }
+
+  .filter-btn.active {
+    background: var(--text-main);
+    color: var(--bg-page);
+    border-color: var(--text-main);
+    font-weight: 500;
+  }
+
+  .thread-stream {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .thread-card {
+    display: flex;
+    gap: 1.5rem;
+    position: relative;
+    padding-bottom: 2.5rem;
+  }
+
+  .thread-card:last-child {
+    padding-bottom: 1rem;
+  }
+
+  .thread-stem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 2rem;
+    flex-shrink: 0;
+  }
+
+  .thread-bullet {
+    width: 1.85rem;
+    height: 1.85rem;
+    border-radius: 50%;
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--border-color);
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-weight: 600;
+    z-index: 2;
+    transition: all 0.2s ease;
+  }
+
+  .thread-card:hover .thread-bullet {
+    border-color: var(--text-main);
+    color: var(--text-main);
+    background-color: var(--bg-surface);
+  }
+
+  .thread-line {
+    flex: 1;
+    width: 2px;
+    background-color: var(--border-color);
+    margin-top: 0.35rem;
+  }
+
+  .thread-card:last-child .thread-line {
+    display: none;
+  }
+
+  .thread-body {
+    flex: 1;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.35rem 1.45rem;
+    box-shadow: var(--card-shadow);
+    transition: all 0.2s ease;
+  }
+
+  .thread-card:hover .thread-body {
+    border-color: var(--text-muted);
+    box-shadow: var(--card-shadow-hover);
+    transform: translateX(2px);
+  }
+
+  .thread-header-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-faint);
+    margin-bottom: 0.5rem;
+  }
+
+  .mono-date {
+    font-family: var(--font-mono);
+  }
+
+  .post-title {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 0.65rem;
+    color: var(--text-main);
+  }
+
+  .post-title a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .post-desc {
+    font-size: 0.93rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .thread-footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 0.35rem;
+    flex-wrap: wrap;
+  }
+
+  .pill-tag {
+    font-size: 0.725rem;
+    color: var(--text-faint);
+    background: var(--bg-subtle);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+  }
+
+  .read-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-main);
+  }
+
+  .read-btn:hover {
+    opacity: 0.8;
+  }
+
+  @media (max-width: 600px) {
+    .thread-stem {
+      display: none;
+    }
+    .thread-card {
+      padding-bottom: 1.5rem;
+    }
+  }
+</style>
+
+<script>
+  function setupFilters() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+    const cards = document.querySelectorAll<HTMLElement>(".thread-card");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = btn.dataset.filter;
+        
+        buttons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        cards.forEach((card) => {
+          if (!filter || filter === "All") {
+            card.style.display = "flex";
+            return;
+          }
+
+          const tags = JSON.parse(card.dataset.tags || "[]") as string[];
+          if (tags.includes(filter)) {
+            card.style.display = "flex";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    });
+  }
+
+  setupFilters();
+  document.addEventListener("astro:after-swap", setupFilters);
+</script>
