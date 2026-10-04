@@ -25,32 +25,14 @@ const renderedArticles = await Promise.all(
 ---
 
 <BaseLayout
-  title="Writing — Giovanni Schiavo"
+  title="Blog — Giovanni Schiavo"
   description="All articles and technical notes by Giovanni Schiavo in full chronological order."
 >
   <div class="container" style="max-width: 680px;">
     <!-- Top Nav -->
-    <div style="margin-bottom: 2.5rem;">
+    <div style="margin-bottom: 3.5rem;">
       <a href="/" class="back-link">&larr; giovanni schiavo</a>
     </div>
-
-    <!-- Page Header -->
-    <header class="feed-header">
-      <h1 class="hero-name" style="margin-bottom: 0.5rem;">Writing</h1>
-      <p style="color: var(--text-muted); font-size: 0.95rem;">
-        All articles and notes loaded in full, in order of posting.
-      </p>
-
-      <!-- Minimal Table of Contents -->
-      <nav class="jump-nav" aria-label="Jump to article">
-        <span class="jump-label">Index:</span>
-        <div class="jump-links">
-          {renderedArticles.map(({ post }) => (
-            <a href={`#${post.id}`}>{post.data.title}</a>
-          ))}
-        </div>
-      </nav>
-    </header>
 
     <!-- Articles Stream -->
     <div class="articles-stream">
@@ -103,44 +85,6 @@ const renderedArticles = await Promise.all(
 
   .back-link:hover {
     color: var(--text-main);
-  }
-
-  .feed-header {
-    margin-bottom: 3.5rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border-color);
-  }
-
-  .jump-nav {
-    margin-top: 1.5rem;
-    font-size: 0.85rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .jump-label {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-faint);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .jump-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .jump-links a {
-    color: var(--text-muted);
-  }
-
-  .jump-links a:hover {
-    color: var(--text-main);
-    text-decoration: underline;
-    text-underline-offset: 3px;
   }
 
   .articles-stream {

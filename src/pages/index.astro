@@ -88,12 +88,12 @@ const projects = [
         <span class="sep">/</span>
         <a href="mailto:contact@giovannischiavo.com">contact</a>
         <span class="sep">/</span>
-        <a href="/blog">writing &rarr;</a>
+        <a href="/blog">blog</a>
       </nav>
     </section>
 
     <!-- PROJECTS -->
-    <section class="section" id="projects">
+    <section class="section" id="projects" style="margin-bottom: 1rem;">
       <div class="section-header">
         <h2 class="section-title">Projects</h2>
       </div>
@@ -109,22 +109,6 @@ const projects = [
           />
         ))}
       </div>
-    </section>
-
-    <!-- WRITING -->
-    <section class="section" id="writing">
-      <div class="section-header">
-        <h2 class="section-title">Writing</h2>
-      </div>
-
-      <a href="/blog" class="writing-link-card">
-        <div class="writing-link-text">
-          <span class="writing-link-title">All articles &rarr;</span>
-          <span class="writing-link-desc">
-            A single continuous stream loading all essays and technical notes in complete text, in order of posting.
-          </span>
-        </div>
-      </a>
     </section>
   </div>
 </BaseLayout>
@@ -150,34 +134,5 @@ const projects = [
   .sep {
     color: var(--border-color);
     user-select: none;
-  }
-
-  .writing-link-card {
-    display: block;
-    padding: 1.25rem 1.4rem;
-    border-radius: 8px;
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    transition: border-color 0.15s ease, transform 0.15s ease;
-  }
-
-  .writing-link-card:hover {
-    border-color: var(--text-muted);
-    transform: translateY(-1px);
-  }
-
-  .writing-link-title {
-    display: block;
-    font-weight: 500;
-    font-size: 1rem;
-    color: var(--text-main);
-    margin-bottom: 0.35rem;
-  }
-
-  .writing-link-desc {
-    display: block;
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    line-height: 1.5;
   }
 </style>

@@ -1,6 +1,6 @@
 # personal-website
 
-Minimalist, editorial personal website and writing notebook for **Giovanni Schiavo** (physics student at University of Padova, developer & tech enthusiast).
+Minimalist, editorial personal website and notebook for **Giovanni Schiavo** (physics student at University of Padova, developer & tech enthusiast).
 
 Built with **[Astro](https://astro.build/)**, **pnpm**, and pure CSS. Zero bloated dependencies, 100% static HTML generation, responsive typography, and an obsidian dark aesthetic.
 
@@ -9,10 +9,10 @@ Built with **[Astro](https://astro.build/)**, **pnpm**, and pure CSS. Zero bloat
 ## Features
 
 - **Who Am I**: Concise hero section highlighting physics studies at UniPD, software development, sourdough fermentation/cooking, photography, and personal finance.
-- **Card-Grid Projects**: All software systems, simulations, and tools showcased directly on the landing page as interactive cards with status badges and tech stack tags.
-- **Single-Page Complete Articles Feed (`/blog`)**: A continuous long-form stream rendering all articles in full prose in chronological order of posting, complete with a quick-jump table of contents and per-entry permalinks.
-- **Headerless, Distraction-Free Layout**: Pure content-first design without top navigation clutter.
-- **Aesthetic**: Refined, pure dark design system crafted with deep obsidian surfaces, subtle zinc borders, and warm monospace/serif accents.
+- **Card Projects**: All software systems, simulations, and tools showcased directly on the landing page with quiet monospace tech tags.
+- **Continuous Articles Stream (`/blog`)**: A distraction-free single stream rendering all articles in complete text in chronological order of posting.
+- **Headerless, Minimal Layout**: Pure content-first design without top navigation clutter.
+- **Aesthetic**: Refined, pure dark design system crafted with deep obsidian surfaces, subtle zinc borders, and warm typography.
 - **RSS Feed**: Auto-generated standard RSS 2.0 feed at `/rss.xml`.
 - **Content Collections**: Type-safe Markdown content layer configured via `src/content.config.ts`.
 
@@ -33,9 +33,9 @@ personal-website/
 │   ├── layouts/
 │   │   └── BaseLayout.astro   # HTML skeleton, SEO & OpenGraph tags
 │   ├── pages/
-│   │   ├── index.astro        # Landing page (About + All Projects + Blog portal)
+│   │   ├── index.astro        # Landing page (About + Projects + Hero links)
 │   │   ├── blog/
-│   │   │   ├── index.astro    # Single long-form feed loading all articles in full
+│   │   │   ├── index.astro    # Single stream loading all articles in full
 │   │   │   └── [...slug].astro# Deep-link article reader
 │   │   └── rss.xml.ts         # RSS feed endpoint
 │   ├── styles/
