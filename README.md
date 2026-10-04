@@ -45,6 +45,8 @@ personal-website/
 │   │   └── global.css         # Minimalist responsive design system
 │   └── content.config.ts      # Astro content collections schema
 ├── astro.config.mjs
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
 └── package.json
 ```
 
@@ -54,16 +56,16 @@ personal-website/
 
 ```bash
 # Install dependencies
-npm install
+pnpm install
 
 # Start development server
-npm run dev
+pnpm dev
 
 # Build production bundle
-npm run build
+pnpm build
 
 # Preview build locally
-npm run preview
+pnpm preview
 ```
 
 ---
