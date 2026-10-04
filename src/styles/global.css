@@ -166,13 +166,7 @@ main {
   font-size: 0.875rem;
   color: var(--text-muted);
   line-height: 1.5;
-  margin-bottom: 0.45rem;
-}
-
-.project-tags {
-  font-family: var(--font-mono);
-  font-size: 0.725rem;
-  color: var(--text-faint);
+  margin-bottom: 0;
 }
 
 /* Prose for full articles */

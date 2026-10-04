@@ -41,22 +41,12 @@ const renderedArticles = await Promise.all(
           <header class="article-header">
             <div class="article-meta">
               <time datetime={post.data.pubDate.toISOString()}>{formattedDate}</time>
-              <span>&middot;</span>
-              <span>{post.data.readingTime}</span>
               <a href={`#${post.id}`} class="anchor-link" aria-label={`Permalink to ${post.data.title}`}>#</a>
             </div>
 
             <h2 class="article-title">
               <a href={`#${post.id}`}>{post.data.title}</a>
             </h2>
-
-            {post.data.tags.length > 0 && (
-              <div class="article-tags">
-                {post.data.tags.map((tag) => (
-                  <span class="tag">#{tag}</span>
-                ))}
-              </div>
-            )}
           </header>
 
           <div class="prose">
@@ -134,19 +124,6 @@ const renderedArticles = await Promise.all(
   .article-title a:hover {
     text-decoration: underline;
     text-underline-offset: 4px;
-  }
-
-  .article-tags {
-    display: flex;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-    margin-top: 0.5rem;
-  }
-
-  .tag {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-faint);
   }
 
   .article-bottom {

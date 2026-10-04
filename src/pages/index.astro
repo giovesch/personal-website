@@ -8,7 +8,6 @@ const projects = [
     description:
       "A code-first headless CMS engineered for autonomous AI agents and human editors alike: typed collections, draft revisions, and WebMCP tooling.",
     link: "https://github.com/giovesch/giove-cms",
-    tags: ["TypeScript", "WebMCP", "Astro"],
     isExternal: true,
   },
   {
@@ -16,7 +15,6 @@ const projects = [
     description:
       "Monte Carlo simulation of 2D ferromagnetic spin lattices comparing Metropolis-Hastings vs. Wolff cluster algorithms across critical temperatures.",
     link: "/blog#simulating-ferromagnetic-phase-transitions",
-    tags: ["Python", "NumPy", "Statistical Mechanics"],
     isExternal: false,
   },
   {
@@ -24,7 +22,6 @@ const projects = [
     description:
       "Linux hwmon fan control utility with live thermal monitoring, preset profiles, and a curve editor for thermal orchestration.",
     link: "https://github.com/giovesch/omacool",
-    tags: ["Linux", "hwmon", "C++"],
     isExternal: true,
   },
   {
@@ -32,7 +29,6 @@ const projects = [
     description:
       "Offline skin-mapping and spatial relocalization system using ORB feature keyframes and an encrypted local SQLite/SQLCipher vault.",
     link: "https://github.com/giovesch/punto",
-    tags: ["Computer Vision", "ORB-SLAM", "C++"],
     isExternal: true,
   },
   {
@@ -40,7 +36,6 @@ const projects = [
     description:
       "Cross-platform configuration environment tailored for high keyboard-driven productivity across Linux and macOS.",
     link: "https://github.com/giovesch/dotfiles",
-    tags: ["Shell", "Neovim", "Tmux"],
     isExternal: true,
   },
   {
@@ -48,7 +43,6 @@ const projects = [
     description:
       "Modern portfolio theory asset allocator and rebalancing calculator implementing Markowitz mean-variance optimization.",
     link: "/blog#a-physicists-guide-to-personal-finance",
-    tags: ["TypeScript", "Financial Modeling"],
     isExternal: false,
   },
   {
@@ -56,7 +50,6 @@ const projects = [
     description:
       "Formulations, hydration tables, and fermentation kinetics for high-hydration sourdough baking and culinary physics.",
     link: "/blog#science-of-78-percent-hydration-sourdough",
-    tags: ["Food Chemistry", "Fermentation"],
     isExternal: false,
   },
 ];
@@ -104,7 +97,6 @@ const projects = [
             title={project.title}
             description={project.description}
             link={project.link}
-            tags={project.tags}
             isExternal={project.isExternal}
           />
         ))}
