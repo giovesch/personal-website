@@ -2,7 +2,7 @@
 
 Minimalist, editorial personal website and writing notebook for **Giovanni Schiavo** (physics student at University of Padova, developer & tech enthusiast).
 
-Built with **[Astro](https://astro.build/)** and pure CSS. Zero bloated dependencies, 100% static HTML generation, responsive typography, and anti-flicker dark/light mode.
+Built with **[Astro](https://astro.build/)** and pure CSS. Zero bloated dependencies, 100% static HTML generation, responsive typography, and an obsidian dark aesthetic.
 
 ---
 
@@ -11,7 +11,7 @@ Built with **[Astro](https://astro.build/)** and pure CSS. Zero bloated dependen
 - **Who Am I**: Concise hero section highlighting physics studies at UniPD, software development, sourdough fermentation/cooking, photography, and personal finance.
 - **Highlighted Projects**: Clean card grid with status badges, tech stack tags, and external/internal routing.
 - **Single-Thread Blog**: Continuous chronological stream layout (`/blog`) with dynamic tag filtering and dedicated deep-dive article reading pages (`/blog/[slug]`).
-- **Typography & Theme System**: Warm editorial palette for light mode and obsidian slate for dark mode, with zero-layout-shift client switcher.
+- **Aesthetic**: Refined, pure dark design system crafted with deep obsidian surfaces, subtle zinc borders, and warm monospace/serif accents.
 - **RSS Feed**: Auto-generated standard RSS 2.0 feed at `/rss.xml`.
 - **Content Collections**: Type-safe Markdown content layer configured via `src/content.config.ts`.
 
@@ -25,10 +25,9 @@ personal-website/
 │   └── favicon.svg           # Monogram SVG icon
 ├── src/
 │   ├── components/
-│   │   ├── Header.astro       # Nav links & dark/light switcher
+│   │   ├── Header.astro       # Minimal navigation bar
 │   │   ├── Footer.astro       # Social links & copyright
-│   │   ├── ProjectCard.astro  # Interactive project card
-│   │   └── ThemeScript.astro  # Inline anti-FOUC theme script
+│   │   └── ProjectCard.astro  # Interactive project card
 │   ├── content/
 │   │   └── blog/              # Markdown articles
 │   ├── layouts/
@@ -42,7 +41,7 @@ personal-website/
 │   │   │   └── index.astro    # Dedicated project showcase
 │   │   └── rss.xml.ts         # RSS feed endpoint
 │   ├── styles/
-│   │   └── global.css         # Minimalist responsive design system
+│   │   └── global.css         # Dark design system
 │   └── content.config.ts      # Astro content collections schema
 ├── astro.config.mjs
 ├── pnpm-lock.yaml
