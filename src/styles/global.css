@@ -72,73 +72,10 @@ a.inline-link:hover {
   text-decoration-color: var(--text-main);
 }
 
-/* Header */
-.site-header {
-  padding: 2.5rem 0 2rem;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.site-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.site-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-weight: 600;
-  font-size: 1.05rem;
-  letter-spacing: -0.01em;
-}
-
-.site-avatar-monogram {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border-color);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text-main);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  font-size: 0.925rem;
-}
-
-.nav-links a {
-  color: var(--text-muted);
-  position: relative;
-  padding: 0.25rem 0;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  color: var(--text-main);
-}
-
-.nav-links a.active::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1.5px;
-  background-color: var(--text-main);
-}
-
-/* Sections */
+/* Main Content Area */
 main {
   flex: 1;
-  padding: 2.5rem 0 4rem;
+  padding: 4.5rem 0 5rem;
 }
 
 .section {
@@ -174,21 +111,21 @@ main {
 
 /* Hero / Who Am I */
 .hero {
-  margin-bottom: 3rem;
+  margin-bottom: 3.25rem;
 }
 
 .hero-name {
   font-family: var(--font-serif);
-  font-size: 2.25rem;
+  font-size: 2.5rem;
   font-weight: 500;
   letter-spacing: -0.02em;
-  line-height: 1.2;
+  line-height: 1.15;
   margin-bottom: 0.5rem;
   color: var(--text-main);
 }
 
 .hero-subtitle {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   color: var(--text-muted);
   line-height: 1.5;
   margin-bottom: 1.5rem;
@@ -242,7 +179,7 @@ main {
   gap: 0.45rem;
   font-size: 0.85rem;
   font-weight: 500;
-  padding: 0.4rem 0.85rem;
+  padding: 0.45rem 0.95rem;
   border-radius: 8px;
   background-color: var(--bg-surface);
   border: 1px solid var(--border-color);
@@ -339,96 +276,6 @@ main {
   border-radius: 4px;
 }
 
-/* Thread / Single-Thread Blog Styling */
-.thread-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  position: relative;
-}
-
-.thread-entry {
-  position: relative;
-  padding-left: 1.75rem;
-  border-left: 2px solid var(--border-color);
-  transition: border-color 0.2s ease;
-}
-
-.thread-entry::before {
-  content: "";
-  position: absolute;
-  left: -6px;
-  top: 6px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: var(--bg-page);
-  border: 2px solid var(--text-faint);
-  transition: all 0.2s ease;
-}
-
-.thread-entry:hover {
-  border-left-color: var(--text-muted);
-}
-
-.thread-entry:hover::before {
-  border-color: var(--text-main);
-  background-color: var(--text-main);
-}
-
-.thread-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.8rem;
-  color: var(--text-faint);
-  margin-bottom: 0.35rem;
-}
-
-.thread-date {
-  font-family: var(--font-mono);
-}
-
-.thread-title {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-weight: 500;
-  line-height: 1.35;
-  color: var(--text-main);
-  margin-bottom: 0.45rem;
-}
-
-.thread-title a:hover {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.thread-summary {
-  font-size: 0.92rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-  margin-bottom: 0.75rem;
-}
-
-.thread-actions {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 0.825rem;
-}
-
-.thread-read-link {
-  color: var(--text-main);
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.thread-read-link:hover {
-  opacity: 0.8;
-}
-
 .tag-list {
   display: flex;
   gap: 0.35rem;
@@ -445,8 +292,8 @@ main {
 
 /* Article Page Prose */
 .article-header {
-  margin-bottom: 2.5rem;
-  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
   border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -456,7 +303,7 @@ main {
   gap: 0.4rem;
   font-size: 0.85rem;
   color: var(--text-muted);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .article-back-link:hover {
@@ -465,10 +312,10 @@ main {
 
 .article-title {
   font-family: var(--font-serif);
-  font-size: 2.25rem;
+  font-size: 2.15rem;
   line-height: 1.2;
   font-weight: 500;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   letter-spacing: -0.02em;
 }
 
@@ -482,7 +329,7 @@ main {
 }
 
 .prose {
-  font-size: 1.05rem;
+  font-size: 1.025rem;
   line-height: 1.8;
   color: var(--text-main);
 }
@@ -546,7 +393,7 @@ main {
 /* Footer */
 .site-footer {
   margin-top: auto;
-  padding: 2.5rem 0;
+  padding: 3rem 0;
   border-top: 1px solid var(--border-subtle);
   font-size: 0.85rem;
   color: var(--text-faint);
@@ -572,16 +419,13 @@ main {
 
 /* Responsive adjustments */
 @media (max-width: 640px) {
+  main {
+    padding: 3rem 0 4rem;
+  }
   .hero-name {
-    font-size: 1.85rem;
+    font-size: 2rem;
   }
   .article-title {
-    font-size: 1.85rem;
-  }
-  .nav-links {
-    gap: 1rem;
-  }
-  .thread-entry {
-    padding-left: 1.25rem;
+    font-size: 1.75rem;
   }
 }
