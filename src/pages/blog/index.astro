@@ -29,10 +29,12 @@ const renderedArticles = await Promise.all(
   description="All articles and technical notes by Giovanni Schiavo in full chronological order."
 >
   <div class="container" style="max-width: 680px;">
-    <!-- Top Nav -->
-    <div style="margin-bottom: 3.5rem;">
-      <a href="/" class="back-link">&larr; giovanni schiavo</a>
-    </div>
+    <!-- Top Brand Header -->
+    <header class="blog-top-header">
+      <h1 class="brand-name">
+        <a href="/">Giovesch</a>
+      </h1>
+    </header>
 
     <!-- Articles Stream -->
     <div class="articles-stream">
@@ -53,12 +55,6 @@ const renderedArticles = await Promise.all(
             <Content />
           </div>
 
-          <div class="article-bottom">
-            <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="top-link">
-              &uarr; top
-            </a>
-          </div>
-
           {idx < renderedArticles.length - 1 && <hr class="article-divider" />}
         </article>
       ))}
@@ -67,14 +63,25 @@ const renderedArticles = await Promise.all(
 </BaseLayout>
 
 <style>
-  .back-link {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--text-muted);
+  .blog-top-header {
+    margin-bottom: 3.5rem;
   }
 
-  .back-link:hover {
+  .brand-name {
+    font-family: var(--font-serif);
+    font-size: 2.25rem;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  .brand-name a {
     color: var(--text-main);
+    transition: opacity 0.15s ease;
+  }
+
+  .brand-name a:hover {
+    opacity: 0.8;
   }
 
   .articles-stream {
@@ -124,22 +131,6 @@ const renderedArticles = await Promise.all(
   .article-title a:hover {
     text-decoration: underline;
     text-underline-offset: 4px;
-  }
-
-  .article-bottom {
-    margin-top: 2.5rem;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .top-link {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--text-faint);
-  }
-
-  .top-link:hover {
-    color: var(--text-muted);
   }
 
   .article-divider {
