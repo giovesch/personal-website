@@ -11,9 +11,8 @@ Built with **[Astro](https://astro.build/)**, **pnpm**, and pure CSS. Zero bloat
 - **Who Am I**: Concise hero section highlighting physics studies at UniPD, software development, sourdough fermentation/cooking, photography, and personal finance.
 - **Card Projects**: All software systems, simulations, and tools showcased directly on the landing page with quiet monospace tech tags.
 - **Continuous Articles Stream (`/blog`)**: A distraction-free single stream rendering all articles in complete text in chronological order of posting.
-- **Headerless, Minimal Layout**: Pure content-first design without top navigation clutter.
+- **Headerless & Footerless, Pure Layout**: Pure content-first design with zero navigation chrome or footer clutter.
 - **Aesthetic**: Refined, pure dark design system crafted with deep obsidian surfaces, subtle zinc borders, and warm typography.
-- **RSS Feed**: Auto-generated standard RSS 2.0 feed at `/rss.xml`.
 - **Content Collections**: Type-safe Markdown content layer configured via `src/content.config.ts`.
 
 ---
@@ -26,7 +25,6 @@ personal-website/
 │   └── favicon.svg           # Monogram SVG icon
 ├── src/
 │   ├── components/
-│   │   ├── Footer.astro       # Social links & copyright
 │   │   └── ProjectCard.astro  # Interactive project card
 │   ├── content/
 │   │   └── blog/              # Markdown articles
@@ -34,10 +32,9 @@ personal-website/
 │   │   └── BaseLayout.astro   # HTML skeleton, SEO & OpenGraph tags
 │   ├── pages/
 │   │   ├── index.astro        # Landing page (About + Projects + Hero links)
-│   │   ├── blog/
-│   │   │   ├── index.astro    # Single stream loading all articles in full
-│   │   │   └── [...slug].astro# Deep-link article reader
-│   │   └── rss.xml.ts         # RSS feed endpoint
+│   │   └── blog/
+│   │       ├── index.astro    # Single stream loading all articles in full
+│   │       └── [...slug].astro# Deep-link article reader
 │   ├── styles/
 │   │   └── global.css         # Dark design system
 │   └── content.config.ts      # Astro content collections schema

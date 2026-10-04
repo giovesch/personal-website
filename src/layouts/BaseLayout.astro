@@ -1,6 +1,5 @@
 ---
 import "../styles/global.css";
-import Footer from "../components/Footer.astro";
 
 interface Props {
   title?: string;
@@ -54,6 +53,5 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://giovesch
     <main>
       <slot />
     </main>
-    <Footer />
   </body>
 </html>
