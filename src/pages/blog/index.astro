@@ -9,15 +9,14 @@ const sortedPosts = allPosts.sort(
 );
 
 const renderedArticles = await Promise.all(
-  sortedPosts.map(async (post, index) => {
+  sortedPosts.map(async (post) => {
     const { Content } = await render(post);
     return {
       post,
       Content,
-      order: sortedPosts.length - index,
       formattedDate: post.data.pubDate.toLocaleDateString("en-US", {
         year: "numeric",
-        month: "long",
+        month: "short",
         day: "numeric",
       }),
     };
@@ -26,87 +25,69 @@ const renderedArticles = await Promise.all(
 ---
 
 <BaseLayout
-  title="Writing & Notes — Giovanni Schiavo"
-  description="All articles, essays, and technical notes by Giovanni Schiavo in full chronological order."
+  title="Writing — Giovanni Schiavo"
+  description="All articles and technical notes by Giovanni Schiavo in full chronological order."
 >
   <div class="container" style="max-width: 680px;">
-    <!-- Top Return Link -->
-    <div style="margin-bottom: 2rem;">
-      <a href="/" class="article-back-link">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m15 18-6-6 6-6"></path>
-        </svg>
-        Giovanni Schiavo
-      </a>
+    <!-- Top Nav -->
+    <div style="margin-bottom: 2.5rem;">
+      <a href="/" class="back-link">&larr; giovanni schiavo</a>
     </div>
 
     <!-- Page Header -->
     <header class="feed-header">
-      <h1 class="hero-name" style="margin-bottom: 0.5rem;">Articles &amp; Writing</h1>
-      <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6;">
-        A single stream containing all articles in complete text, ordered by date of publication.
+      <h1 class="hero-name" style="margin-bottom: 0.5rem;">Writing</h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        All articles and notes loaded in full, in order of posting.
       </p>
 
-      <!-- Quick Jump Index -->
-      <nav class="toc-nav" aria-label="Article Table of Contents">
-        <div class="toc-title">Jump to article:</div>
-        <ol class="toc-list">
-          {renderedArticles.map(({ post, order }) => (
-            <li>
-              <a href={`#${post.id}`}>
-                <span class="toc-num">#{order}</span>
-                <span class="toc-link-text">{post.data.title}</span>
-              </a>
-            </li>
+      <!-- Minimal Table of Contents -->
+      <nav class="jump-nav" aria-label="Jump to article">
+        <span class="jump-label">Index:</span>
+        <div class="jump-links">
+          {renderedArticles.map(({ post }) => (
+            <a href={`#${post.id}`}>{post.data.title}</a>
           ))}
-        </ol>
+        </div>
       </nav>
     </header>
 
     <!-- Articles Stream -->
     <div class="articles-stream">
-      {renderedArticles.map(({ post, Content, formattedDate, order }, idx) => (
-        <article class="single-article-block" id={post.id}>
+      {renderedArticles.map(({ post, Content, formattedDate }, idx) => (
+        <article class="single-article" id={post.id}>
           <header class="article-header">
-            <div class="article-meta-row">
-              <span class="article-order-badge">Entry #{order}</span>
+            <div class="article-meta">
               <time datetime={post.data.pubDate.toISOString()}>{formattedDate}</time>
-              <span>·</span>
+              <span>&middot;</span>
               <span>{post.data.readingTime}</span>
-              <a href={`#${post.id}`} class="anchor-permalink" aria-label={`Anchor link to ${post.data.title}`}>#</a>
+              <a href={`#${post.id}`} class="anchor-link" aria-label={`Permalink to ${post.data.title}`}>#</a>
             </div>
 
             <h2 class="article-title">
               <a href={`#${post.id}`}>{post.data.title}</a>
             </h2>
 
-            <div class="tag-list" style="margin-top: 0.75rem;">
-              {post.data.tags.map((tag) => (
-                <span class="blog-tag">#{tag}</span>
-              ))}
-            </div>
+            {post.data.tags.length > 0 && (
+              <div class="article-tags">
+                {post.data.tags.map((tag) => (
+                  <span class="tag">#{tag}</span>
+                ))}
+              </div>
+            )}
           </header>
 
           <div class="prose">
             <Content />
           </div>
 
-          <div class="article-footer-bar">
-            <a href="#toc" class="inline-link" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
-              &uarr; Back to top
+          <div class="article-bottom">
+            <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="top-link">
+              &uarr; top
             </a>
-            <span style="color: var(--text-faint); font-size: 0.8rem;">
-              {post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "short" })}
-            </span>
           </div>
 
-          {idx < renderedArticles.length - 1 && (
-            <div class="stream-divider">
-              <div class="divider-line"></div>
-              <span class="divider-symbol">§</span>
-              <div class="divider-line"></div>
-            </div>
-          )}
+          {idx < renderedArticles.length - 1 && <hr class="article-divider" />}
         </article>
       ))}
     </div>
@@ -114,59 +95,52 @@ const renderedArticles = await Promise.all(
 </BaseLayout>
 
 <style>
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .back-link:hover {
+    color: var(--text-main);
+  }
+
   .feed-header {
     margin-bottom: 3.5rem;
     padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-color);
   }
 
-  .toc-nav {
+  .jump-nav {
     margin-top: 1.5rem;
-    padding: 1rem 1.25rem;
-    background-color: var(--bg-surface);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    font-size: 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
   }
 
-  .toc-title {
-    font-size: 0.775rem;
-    font-weight: 600;
+  .jump-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-faint);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--text-faint);
-    margin-bottom: 0.5rem;
   }
 
-  .toc-list {
-    list-style: none;
+  .jump-links {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
   }
 
-  .toc-list li a {
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-    font-size: 0.875rem;
+  .jump-links a {
     color: var(--text-muted);
   }
 
-  .toc-list li a:hover {
+  .jump-links a:hover {
     color: var(--text-main);
-  }
-
-  .toc-num {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-faint);
-    flex-shrink: 0;
-  }
-
-  .toc-link-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .articles-stream {
@@ -174,40 +148,39 @@ const renderedArticles = await Promise.all(
     flex-direction: column;
   }
 
-  .single-article-block {
-    padding-bottom: 2rem;
+  .single-article {
     scroll-margin-top: 2rem;
   }
 
-  .article-meta-row {
+  .article-header {
+    margin-bottom: 1.75rem;
+  }
+
+  .article-meta {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
     font-size: 0.825rem;
-    color: var(--text-muted);
-    margin-bottom: 0.75rem;
-  }
-
-  .article-order-badge {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    padding: 0.15rem 0.45rem;
-    border-radius: 4px;
-    background-color: var(--bg-subtle);
-    color: var(--accent-highlight);
-    border: 1px solid var(--border-color);
-  }
-
-  .anchor-permalink {
     font-family: var(--font-mono);
     color: var(--text-faint);
-    margin-left: auto;
-    font-size: 0.9rem;
-    padding: 0 0.25rem;
+    margin-bottom: 0.5rem;
   }
 
-  .anchor-permalink:hover {
+  .anchor-link {
+    margin-left: auto;
+    color: var(--text-faint);
+  }
+
+  .anchor-link:hover {
     color: var(--text-main);
+  }
+
+  .article-title {
+    font-family: var(--font-serif);
+    font-size: 1.95rem;
+    line-height: 1.25;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
   }
 
   .article-title a {
@@ -219,31 +192,38 @@ const renderedArticles = await Promise.all(
     text-underline-offset: 4px;
   }
 
-  .article-footer-bar {
-    margin-top: 3rem;
+  .article-tags {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.85rem;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
   }
 
-  .stream-divider {
-    display: flex;
-    align-items: center;
-    gap: 1.25rem;
-    margin: 4.5rem 0;
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
     color: var(--text-faint);
   }
 
-  .divider-line {
-    flex: 1;
-    height: 1px;
-    background: var(--border-color);
+  .article-bottom {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: flex-end;
   }
 
-  .divider-symbol {
-    font-family: var(--font-serif);
-    font-size: 1.15rem;
-    opacity: 0.6;
+  .top-link {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-faint);
+  }
+
+  .top-link:hover {
+    color: var(--text-muted);
+  }
+
+  .article-divider {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 4rem 0;
   }
 </style>

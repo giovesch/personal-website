@@ -1,284 +1,183 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProjectCard from "../components/ProjectCard.astro";
-import { getCollection } from "astro:content";
 
-const allPosts = await getCollection("blog");
-const postCount = allPosts.length;
-
-const projectCategories = [
+const projects = [
   {
-    name: "Developer Tools & Systems",
-    items: [
-      {
-        title: "giove-cms",
-        badge: "Open Source",
-        description:
-          "A code-first headless CMS engineered for autonomous AI agents and human editors alike: typed collections, draft revisions, access control, and a WebMCP layer giving agents equal tool access.",
-        link: "https://github.com/giovesch/giove-cms",
-        tags: ["TypeScript", "WebMCP", "Astro", "Agentic UI"],
-        isExternal: true,
-      },
-      {
-        title: "omacool",
-        badge: "Systems",
-        description:
-          "Linux hwmon fan control utility with live thermal monitoring, preset management, and an interactive draggable curve editor for thermal orchestration.",
-        link: "https://github.com/giovesch/omacool",
-        tags: ["Linux", "hwmon", "C++", "Kernel"],
-        isExternal: true,
-      },
-      {
-        title: "dotfiles",
-        badge: "Config",
-        description:
-          "Cross-platform configuration environment tailored for high keyboard-driven productivity across Linux and macOS.",
-        link: "https://github.com/giovesch/dotfiles",
-        tags: ["Shell", "Neovim", "Tmux", "Wayland"],
-        isExternal: true,
-      },
-    ],
+    title: "giove-cms",
+    description:
+      "A code-first headless CMS engineered for autonomous AI agents and human editors alike: typed collections, draft revisions, and WebMCP tooling.",
+    link: "https://github.com/giovesch/giove-cms",
+    tags: ["TypeScript", "WebMCP", "Astro"],
+    isExternal: true,
   },
   {
-    name: "Physics & Computer Vision",
-    items: [
-      {
-        title: "Ising Phase Simulator",
-        badge: "Computational Physics",
-        description:
-          "Monte Carlo simulation of 2D ferromagnetic spin lattices testing Metropolis-Hastings vs. Wolff cluster algorithms across the Onsager critical temperature.",
-        link: "/blog#simulating-ferromagnetic-phase-transitions",
-        tags: ["Python", "NumPy", "Statistical Mechanics", "MCMC"],
-        isExternal: false,
-      },
-      {
-        title: "Punto",
-        badge: "Computer Vision",
-        description:
-          "Offline skin-mapping demo utilizing persistent keyframe mapping with ORB relocalization and an encrypted local vault for privacy-preserving biometric analysis.",
-        link: "https://github.com/giovesch/punto",
-        tags: ["OpenCV", "ORB-SLAM", "C++", "SQLCipher"],
-        isExternal: true,
-      },
-    ],
+    title: "Ising Phase Simulator",
+    description:
+      "Monte Carlo simulation of 2D ferromagnetic spin lattices comparing Metropolis-Hastings vs. Wolff cluster algorithms across critical temperatures.",
+    link: "/blog#simulating-ferromagnetic-phase-transitions",
+    tags: ["Python", "NumPy", "Statistical Mechanics"],
+    isExternal: false,
   },
   {
-    name: "Personal & Craft",
-    items: [
-      {
-        title: "LedgerFlow Portfolio Engine",
-        badge: "Personal Finance",
-        description:
-          "Modern portfolio theory asset allocator and rebalancing calculator implementing Markowitz mean-variance optimization and Monte Carlo retirement projections.",
-        link: "/blog#a-physicists-guide-to-personal-finance",
-        tags: ["TypeScript", "Financial Modeling", "Optimization"],
-        isExternal: false,
-      },
-      {
-        title: "Giove's Culinary Notebook",
-        badge: "Culinary Science",
-        description:
-          "Formulations, hydration tables, and fermentation kinetics for high-hydration sourdough baking and culinary physics.",
-        link: "/blog#science-of-78-percent-hydration-sourdough",
-        tags: ["Fermentation", "Food Chemistry", "Markdown"],
-        isExternal: false,
-      },
-    ],
+    title: "omacool",
+    description:
+      "Linux hwmon fan control utility with live thermal monitoring, preset profiles, and a curve editor for thermal orchestration.",
+    link: "https://github.com/giovesch/omacool",
+    tags: ["Linux", "hwmon", "C++"],
+    isExternal: true,
+  },
+  {
+    title: "Punto",
+    description:
+      "Offline skin-mapping and spatial relocalization system using ORB feature keyframes and an encrypted local SQLite/SQLCipher vault.",
+    link: "https://github.com/giovesch/punto",
+    tags: ["Computer Vision", "ORB-SLAM", "C++"],
+    isExternal: true,
+  },
+  {
+    title: "dotfiles",
+    description:
+      "Cross-platform configuration environment tailored for high keyboard-driven productivity across Linux and macOS.",
+    link: "https://github.com/giovesch/dotfiles",
+    tags: ["Shell", "Neovim", "Tmux"],
+    isExternal: true,
+  },
+  {
+    title: "LedgerFlow Portfolio Engine",
+    description:
+      "Modern portfolio theory asset allocator and rebalancing calculator implementing Markowitz mean-variance optimization.",
+    link: "/blog#a-physicists-guide-to-personal-finance",
+    tags: ["TypeScript", "Financial Modeling"],
+    isExternal: false,
+  },
+  {
+    title: "Giove's Culinary Notebook",
+    description:
+      "Formulations, hydration tables, and fermentation kinetics for high-hydration sourdough baking and culinary physics.",
+    link: "/blog#science-of-78-percent-hydration-sourdough",
+    tags: ["Food Chemistry", "Fermentation"],
+    isExternal: false,
   },
 ];
 ---
 
 <BaseLayout
-  title="Giovanni Schiavo — Physics Student & Developer"
+  title="Giovanni Schiavo"
   description="Personal website of Giovanni Schiavo: physics student at the University of Padova, developer and tech enthusiast."
 >
   <div class="container">
-    <!-- WHO AM I SECTION -->
+    <!-- WHO AM I -->
     <section class="hero" id="who-am-i">
       <h1 class="hero-name">Giovanni Schiavo</h1>
       <p class="hero-subtitle">
-        Physics student at University of Padova · Developer &amp; tech enthusiast
+        Physics student at University of Padova &middot; Developer
       </p>
-
-      <div class="status-pills">
-        <span class="status-pill">
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-          </svg>
-          UniPD Physics
-        </span>
-        <span class="status-pill">
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
-          Padova, Italy
-        </span>
-        <span class="status-pill">
-          <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="16 18 22 12 16 6"></polyline>
-            <polyline points="8 6 2 12 8 18"></polyline>
-          </svg>
-          Full-Stack &amp; Systems
-        </span>
-      </div>
 
       <div class="hero-bio">
         <p>
-          I am an undergraduate physics student at the <span class="highlight-text">University of Padova</span>, where I explore the mathematical and computational principles governing complex physical systems — from statistical mechanics to numerical simulations.
+          Undergraduate physics student in Padova exploring statistical mechanics, computational models, and simulation algorithms. Software developer focused on clean systems, tooling, and agentic workflows.
         </p>
         <p>
-          Beyond physics, I am a dedicated <span class="highlight-text">software developer</span> fascinated by elegant systems, developer tools, and agentic workflows. When I am away from my terminal, you will find me experimenting with <span class="highlight-text">sourdough fermentation and cooking</span>, walking the historic porticoes of Padova with a camera for <span class="highlight-text">street photography</span>, or studying portfolio theory and <span class="highlight-text">personal finance</span>.
+          Outside the terminal: high-hydration sourdough fermentation, street photography with a 35mm prime under Padova's porticoes, and portfolio theory.
         </p>
       </div>
 
-      <div class="social-links">
-        <a href="https://github.com/giovesch" target="_blank" rel="noopener noreferrer" class="social-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
-            <path d="M9 18c-4.51 2-5-2-7-2"></path>
-          </svg>
-          GitHub
-        </a>
-        <a href="mailto:contact@giovannischiavo.com" class="social-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-          </svg>
-          Email
-        </a>
-        <a href="/blog" class="social-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-          </svg>
-          Read Blog
-        </a>
-      </div>
+      <nav class="hero-links" aria-label="Social and page links">
+        <a href="https://github.com/giovesch" target="_blank" rel="noopener noreferrer">github</a>
+        <span class="sep">/</span>
+        <a href="mailto:contact@giovannischiavo.com">contact</a>
+        <span class="sep">/</span>
+        <a href="/blog">writing &rarr;</a>
+      </nav>
     </section>
 
-    <!-- PROJECTS SECTION (ALL PROJECTS SHOWN AS CARDS) -->
+    <!-- PROJECTS -->
     <section class="section" id="projects">
       <div class="section-header">
-        <h2 class="section-title">Projects &amp; Experiments</h2>
+        <h2 class="section-title">Projects</h2>
       </div>
 
-      <div style="display: flex; flex-direction: column; gap: 2.25rem;">
-        {projectCategories.map((cat) => (
-          <div>
-            <h3 style="font-size: 0.95rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.85rem; letter-spacing: -0.01em;">
-              {cat.name}
-            </h3>
-            <div class="projects-grid">
-              {cat.items.map((item) => (
-                <ProjectCard
-                  title={item.title}
-                  badge={item.badge}
-                  description={item.description}
-                  link={item.link}
-                  tags={item.tags}
-                  isExternal={item.isExternal}
-                />
-              ))}
-            </div>
-          </div>
+      <div class="projects-grid">
+        {projects.map((project) => (
+          <ProjectCard
+            title={project.title}
+            description={project.description}
+            link={project.link}
+            tags={project.tags}
+            isExternal={project.isExternal}
+          />
         ))}
       </div>
     </section>
 
-    <!-- WRITING / BLOG LINK SECTION (NO ARTICLES ON LANDING PAGE) -->
-    <section class="section" id="blog-link" style="margin-bottom: 1rem;">
+    <!-- WRITING -->
+    <section class="section" id="writing">
       <div class="section-header">
-        <h2 class="section-title">Writing &amp; Notes</h2>
+        <h2 class="section-title">Writing</h2>
       </div>
 
-      <a href="/blog" class="writing-portal-card">
-        <div class="writing-portal-content">
-          <div class="writing-portal-title">
-            <span>Read all articles</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="m12 5 7 7-7 7"></path>
-            </svg>
-          </div>
-          <p class="writing-portal-desc">
-            A single continuous long page loading all {postCount} essays and technical notes in complete text, in order of posting — covering computational physics, software architecture, sourdough baking thermodynamics, street photography, and portfolio theory.
-          </p>
+      <a href="/blog" class="writing-link-card">
+        <div class="writing-link-text">
+          <span class="writing-link-title">All articles &rarr;</span>
+          <span class="writing-link-desc">
+            A single continuous stream loading all essays and technical notes in complete text, in order of posting.
+          </span>
         </div>
-        <span class="portal-badge">{postCount} full articles &rarr;</span>
       </a>
     </section>
   </div>
 </BaseLayout>
 
 <style>
-  .writing-portal-card {
+  .hero-links {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding: 1.5rem 1.75rem;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    font-family: var(--font-mono);
+  }
+
+  .hero-links a {
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+  }
+
+  .hero-links a:hover {
+    color: var(--text-main);
+  }
+
+  .sep {
+    color: var(--border-color);
+    user-select: none;
+  }
+
+  .writing-link-card {
+    display: block;
+    padding: 1.25rem 1.4rem;
+    border-radius: 8px;
     background-color: var(--bg-surface);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
-    box-shadow: var(--card-shadow);
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    text-decoration: none;
+    transition: border-color 0.15s ease, transform 0.15s ease;
   }
 
-  .writing-portal-card:hover {
+  .writing-link-card:hover {
     border-color: var(--text-muted);
-    box-shadow: var(--card-shadow-hover);
-    transform: translateY(-2px);
+    transform: translateY(-1px);
   }
 
-  .writing-portal-content {
-    flex: 1;
-  }
-
-  .writing-portal-title {
-    font-family: var(--font-serif);
-    font-size: 1.35rem;
+  .writing-link-title {
+    display: block;
     font-weight: 500;
+    font-size: 1rem;
     color: var(--text-main);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.35rem;
   }
 
-  .writing-portal-card:hover .writing-portal-title svg {
-    transform: translateX(4px);
-  }
-
-  .writing-portal-title svg {
-    transition: transform 0.15s ease;
-  }
-
-  .writing-portal-desc {
-    font-size: 0.925rem;
+  .writing-link-desc {
+    display: block;
+    font-size: 0.875rem;
     color: var(--text-muted);
-    line-height: 1.55;
-    margin: 0;
-  }
-
-  .portal-badge {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--accent-highlight);
-    background: var(--bg-subtle);
-    padding: 0.4rem 0.85rem;
-    border-radius: 9999px;
-    border: 1px solid var(--border-color);
-    white-space: nowrap;
-  }
-
-  @media (max-width: 640px) {
-    .writing-portal-card {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 1rem;
-    }
+    line-height: 1.5;
   }
 </style>

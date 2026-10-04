@@ -13,7 +13,6 @@ const {
   description,
   link,
   tags = [],
-  badge,
   isExternal = true,
 } = Astro.props;
 ---
@@ -24,35 +23,16 @@ const {
   target={isExternal ? "_blank" : undefined}
   rel={isExternal ? "noopener noreferrer" : undefined}
 >
-  <div class="project-top">
-    <div class="project-title">
-      <span>{title}</span>
-      <svg 
-        class="project-icon-arrow" 
-        xmlns="http://www.w3.org/2000/svg" 
-        width="15" 
-        height="15" 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        stroke="currentColor" 
-        stroke-width="2" 
-        stroke-linecap="round" 
-        stroke-linejoin="round"
-      >
-        <path d="M7 17L17 7"></path>
-        <path d="M7 7h10v10"></path>
-      </svg>
-    </div>
-    {badge && <span class="project-badge">{badge}</span>}
+  <div class="project-header">
+    <span class="project-title">{title}</span>
+    <span class="project-arrow">{isExternal ? "↗" : "→"}</span>
   </div>
 
   <p class="project-desc">{description}</p>
 
   {tags.length > 0 && (
     <div class="project-tags">
-      {tags.map((tag) => (
-        <span class="tech-tag">{tag}</span>
-      ))}
+      {tags.join(" · ")}
     </div>
   )}
 </a>
