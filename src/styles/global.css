@@ -138,28 +138,11 @@ main {
   transform: translateY(-1px);
 }
 
-.project-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 0.35rem;
-}
-
 .project-title {
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--text-main);
-}
-
-.project-arrow {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  color: var(--text-faint);
-  transition: color 0.15s ease;
-}
-
-.project-card:hover .project-arrow {
-  color: var(--text-main);
+  margin-bottom: 0.35rem;
 }
 
 .project-desc {

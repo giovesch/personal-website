@@ -20,10 +20,6 @@ const {
   target={isExternal ? "_blank" : undefined}
   rel={isExternal ? "noopener noreferrer" : undefined}
 >
-  <div class="project-header">
-    <span class="project-title">{title}</span>
-    <span class="project-arrow">{isExternal ? "↗" : "→"}</span>
-  </div>
-
+  <div class="project-title">{title}</div>
   <p class="project-desc">{description}</p>
 </a>
